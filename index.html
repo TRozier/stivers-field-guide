@@ -222,6 +222,7 @@
   <button class="nav-btn" onclick="showTab('curriculum',this)">Curriculum</button>
   <button class="nav-btn" onclick="showTab('tiger-eye',this)">Tiger Eye 🔥</button>
   <button class="nav-btn" onclick="showTab('mu-test',this)">MU Test</button>
+  <button class="nav-btn" onclick="showTab('sprints',this)">Sprint Library</button>
 </div>
 
 <div class="main">
@@ -249,7 +250,7 @@
           <div class="sprint-item"><div class="sprint-dot"></div>2–3×10m from knees</div>
           <div class="sprint-item"><div class="sprint-dot"></div>10m hill climbs</div>
         </div>
-        <div style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border); font-size:11px; color:var(--text-muted);">Volume: ~150m Wk 1 → 220–240m Wk 3.5</div>
+        <div style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border); font-size:11px; color:var(--text-muted);">Start ~150m Session 1. Add ~20m every sprint session. Work:rest ratio stays fixed — only volume climbs.</div>
       </div>
     </div>
     <div class="card card-accent-green">
@@ -489,6 +490,173 @@
     <input class="form-input" id="mu-date" type="date">
   </div>
   <button class="btn-primary" onclick="logMUTest()" id="mu-btn">Log Score</button>
+</div>
+
+
+<!-- SPRINT LIBRARY -->
+<div id="tab-sprints" class="hidden">
+  <p class="section-label">Sprint Training Library</p>
+
+  <div class="pill-row">
+    <button class="pill active" onclick="showSprint('ladder',this)">Ladder</button>
+    <button class="pill" onclick="showSprint('cone',this)">Cone / Distance</button>
+    <button class="pill" onclick="showSprint('sprint',this)">Sprint</button>
+    <button class="pill" onclick="showSprint('cod',this)">CoD Chase</button>
+    <button class="pill" onclick="showSprint('activation',this)">Activation</button>
+  </div>
+
+  <!-- LADDER -->
+  <div id="sprint-ladder">
+    <div class="info-box"><div class="info-text">Equipment: agility ladder. Focus: foot speed, coordination, neuromuscular activation.</div></div>
+    <div class="card">
+      <div class="card-body">
+        <div class="sprint-item"><div class="sprint-dot"></div>Single Leg (SL) Hops</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>SL Double Hop</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>SL In &amp; Out</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>SL Medial / Lateral In &amp; Out</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>Tuck Jumps</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>SL Tuck Jumps</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>Scissor / Split Jumps</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>SL Lateral Skater Jumps</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONE / DISTANCE -->
+  <div id="sprint-cone" class="hidden">
+    <div class="info-box"><div class="info-text">Used in warmups on sprint days — intersperse, not all at once.</div></div>
+    <div class="card">
+      <div class="card-body">
+        <div class="sprint-item"><div class="sprint-dot"></div>A-March</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>A-Skip</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>High Knee Skips</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>Horizontal Bounds</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>High Knees</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPRINT -->
+  <div id="sprint-sprint" class="hidden">
+    <div class="card card-accent-orange">
+      <div class="card-title">3×20m Sprints</div>
+      <div class="card-body">
+        <div class="stat-row"><span class="stat-label">Rest</span><span class="stat-val">2 min</span></div>
+        <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Deceleration focus — teach the stop, not just the go</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:var(--tiger-orange);">
+      <div class="card-title" style="font-size:12px;">Session Volume Progression</div>
+      <div class="card-body" style="font-size:11px; color:var(--text-secondary); margin-bottom:6px;">Start ~150m Session 1. Add ~20m every sprint session. Work:rest ratio stays fixed — only the work increases. Bring the frog to a boil.</div>
+      <div class="stat-row"><span class="stat-label">S1 (Mon Wk 1)</span><span class="stat-val">~150m</span></div>
+      <div class="stat-row"><span class="stat-label">S2 (Wed Wk 1)</span><span class="stat-val">~170m</span></div>
+      <div class="stat-row"><span class="stat-label">S3 (Mon Wk 2)</span><span class="stat-val">~190m</span></div>
+      <div class="stat-row"><span class="stat-label">S4 (Wed Wk 2)</span><span class="stat-val">~210m</span></div>
+      <div class="stat-row"><span class="stat-label">S5 (Mon Wk 3)</span><span class="stat-val">~230m</span></div>
+      <div class="stat-row"><span class="stat-label">S6 (Wed Wk 3)</span><span class="stat-val">~250m</span></div>
+      <div class="stat-row"><span class="stat-label">S7 (Mon Wk 3.5)</span><span class="stat-val">~270m</span></div>
+      <div class="stat-row"><span class="stat-label">S8 (Wed Wk 3.5)</span><span class="stat-val" style="color:var(--red);">~290m</span></div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">Curved Runs Along the D</div>
+      <div class="card-body">
+        <div class="stat-row"><span class="stat-label">Sets</span><span class="stat-val">2</span></div>
+        <div class="stat-row"><span class="stat-label">Distance</span><span class="stat-val">~30–35m per run</span></div>
+        <div class="stat-row"><span class="stat-label">Rest</span><span class="stat-val">Full recovery</span></div>
+        <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Soccer-specific — mirrors game movement. CoD at pace through the curve.</span></div>
+      </div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">2–3×10m Sprints from Knees</div>
+      <div class="card-body">
+        <div class="stat-row"><span class="stat-label">Rest</span><span class="stat-val">Full recovery</span></div>
+        <div class="stat-row"><span class="stat-label">Volume</span><span class="stat-val">30m max</span></div>
+        <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Start on knees, hop up, explode. First-step reaction training.</span></div>
+      </div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">10m Hill Climbs</div>
+      <div class="card-body">
+        <div class="stat-row"><span class="stat-label">Rest</span><span class="stat-val">Full recovery</span></div>
+        <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Drive phase and power development. Uphill resistance builds explosion on flat ground.</span></div>
+      </div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">30-Yard Sprints</div>
+      <div class="card-body">Pure acceleration and top-end speed. Pair with deceleration work.</div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">4-Cone Sprints</div>
+      <div class="card-body">Cones in a square. Sprint each side in sequence. Develops acceleration and deceleration into turns.</div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">Crossovers to Sprint — L-Shaped</div>
+      <div class="card-body">Lateral crossover steps along the short arm, then explode into a straight sprint down the long arm. Loads the hip and glute before acceleration.</div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">Figure 8 to Sprint — L-Shaped</div>
+      <div class="card-body">Figure 8 footwork through cones, then sprint out of the last turn. Combines CoD footwork with acceleration.</div>
+    </div>
+  </div>
+
+  <!-- COD CHASE -->
+  <div id="sprint-cod" class="hidden">
+    <div class="info-box"><div class="info-text">Partner chase — reactive, competitive. Defender chases, attacker escapes. Swap roles each rep. <strong>Minimum 4 reps each drill when prescribed.</strong></div></div>
+    <div class="card card-accent-green">
+      <div class="card-title">Partner Chase — Straight Line of Poles <span class="badge badge-red">4x min</span></div>
+      <div class="card-body">Both players weave through — attacker leads, defender chases. Straight-line speed and body avoidance.</div>
+    </div>
+    <div class="card card-accent-green">
+      <div class="card-title">Partner Chase — Poles in W Formation <span class="badge badge-red">4x min</span></div>
+      <div class="card-body">Sharp lateral cuts at each turn. Defender has to match every cut. Most demanding of the three.</div>
+    </div>
+    <div class="card card-accent-green">
+      <div class="card-title">Partner Chase — Poles in Curved Line <span class="badge badge-red">4x min</span></div>
+      <div class="card-body">Players arc through at pace. Tests body lean through bending runs. Most game-realistic.</div>
+    </div>
+  </div>
+
+  <!-- ACTIVATION -->
+  <div id="sprint-activation" class="hidden">
+    <div class="info-box"><div class="info-text">Load the movement pattern before the sprint. Drills with minimums — hit them every time.</div></div>
+    <div class="card card-accent-orange">
+      <div class="card-title">Pogo Jumps into Sprint</div>
+      <div class="card-body">5m pogo jumps → immediate 10m sprint. Loads ankle stiffness and Achilles. Keep pogos reactive — any pause kills the elastic energy.</div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">3–4×10m Sprints with Pogo Jumps</div>
+      <div class="card-body">
+        <div class="stat-row"><span class="stat-label">Protocol</span><span class="stat-val">5-yard pogos → 10m sprint</span></div>
+        <div class="stat-row"><span class="stat-label">Volume</span><span class="stat-val">40m max</span></div>
+        <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">The pogo loads the spring — the sprint uses it.</span></div>
+      </div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">Lunge Switches into Sprint</div>
+      <div class="card-body">3 quick jump lunges → 10m sprint. Activates hip flexors and glutes. No pause between last lunge and first step.</div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">A-Skip into Sprint</div>
+      <div class="card-body">A-Skip for 5–8m → full sprint. Carry the knee drive from the skip into the sprint — don't reset posture between the two.</div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">Shuffle Curve Sprint</div>
+      <div class="card-body">Pairs, backs to each other at one end of a curved cone setup. On go — side shuffle through the curve, race back around, sprint through to the start. First one through wins.</div>
+    </div>
+    <div class="card card-accent-red">
+      <div class="card-title">Linear Sprint Drop Drill <span class="badge badge-red">4x min</span></div>
+      <div class="card-body">Two players race. Pick up a cone, sprint to set distance, put it down, sprint back. Repeat until all cones moved. Solo or team vs team.</div>
+    </div>
+    <div class="card card-accent-red">
+      <div class="card-title">Lateral Sprint Drop Drill <span class="badge badge-red">4x min</span></div>
+      <div class="card-body">Same as linear but lateral only — side shuffling the whole time. Loads the hips and groin. If it feels easy it's not being done right.</div>
+    </div>
+    <div class="card card-accent-red">
+      <div class="card-title">Burpee to Sprint <span class="badge badge-red">4x min</span></div>
+      <div class="card-body">Full burpee → sprint immediately. Trains acceleration out of fatigue. The burpee is the load — sprint starts the moment they're upright.</div>
+    </div>
+  </div>
 </div>
 
 </div><!-- /main -->
@@ -741,6 +909,13 @@ async function logMUTest() {
     loadMUTest();
   } catch(e) { toast('Save failed. Check connection.', 'error'); }
   btn.disabled=false; btn.textContent='Log Score';
+}
+
+function showSprint(id, btn) {
+  ['ladder','cone','sprint','cod','activation'].forEach(s => document.getElementById('sprint-' + s).classList.add('hidden'));
+  document.querySelectorAll('#tab-sprints .pill').forEach(p => p.classList.remove('active'));
+  document.getElementById('sprint-' + id).classList.remove('hidden');
+  if (btn) btn.classList.add('active');
 }
 
 /* TOAST */
