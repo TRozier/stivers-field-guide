@@ -328,8 +328,8 @@
 
   <div class="fatigue-card">
     <div class="fatigue-title">💀 Pyramid of Pain</div>
-    <div class="fatigue-desc">Sprint 10m back · 20m back · 30m back · 40m back — then back down. No rest except jogging back. One round. Two rounds if they looked comfortable at the top.</div>
-    <div class="fatigue-meta"><span class="badge badge-red">~6–8 min</span><span class="badge badge-orange">All positions</span></div>
+    <div class="fatigue-desc">Sprint 10m back · 20m back · 30m back · 40m back · then back down. Jog back is the only rest. That's one pyramid — 320m of work.<br><br>2 rounds minimum with mandatory rest between. Coach calls 3 or 4 if they still look comfortable — or if the session had an attitude problem that needs correcting.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">2 rounds min</span><span class="badge badge-red">320m per round</span><span class="badge badge-orange">Rest between rounds required</span></div>
   </div>
 
   <div class="fatigue-card">
@@ -441,7 +441,8 @@
   <div class="section-label">Log a New Time</div>
   <div class="form-group">
     <label class="form-label">Player</label>
-    <select class="form-select" id="te-player"><option value="">Select player...</option><option>Oliver</option><option>King</option><option>Soren</option><option>AJ</option><option>Isaac</option><option>Edward</option><option>Anderson</option><option>Micah J</option><option>Anthony H</option><option>Eduardo</option><option>Brennan</option><option>Pedro</option><option>Emilio</option><option>Big Ant</option><option>Bryce</option><option>Noah</option></select>
+    <select class="form-select" id="te-player" onchange="toggleOther('te')"><option value="">Select player...</option><option>Oliver</option><option>King</option><option>Soren</option><option>AJ</option><option>Isaac</option><option>Edward</option><option>Anderson</option><option>Micah J</option><option>Anthony H</option><option>Eduardo</option><option>Brennan</option><option>Pedro</option><option>Emilio</option><option>Big Ant</option><option>Bryce</option><option>Noah</option><option value="__other__">Other / New Player...</option></select>
+    <input class="form-input hidden" id="te-player-other" type="text" placeholder="Enter name" style="margin-top:8px;">
   </div>
   <div class="form-group">
     <label class="form-label">Time (mm:ss)</label>
@@ -479,7 +480,8 @@
   <div class="section-label">Log a Test Result</div>
   <div class="form-group">
     <label class="form-label">Player</label>
-    <select class="form-select" id="mu-player"><option value="">Select player...</option><option>Oliver</option><option>King</option><option>Soren</option><option>AJ</option><option>Isaac</option><option>Edward</option><option>Anderson</option><option>Micah J</option><option>Anthony H</option><option>Eduardo</option><option>Brennan</option><option>Pedro</option><option>Emilio</option><option>Big Ant</option><option>Bryce</option><option>Noah</option></select>
+    <select class="form-select" id="mu-player" onchange="toggleOther('mu')"><option value="">Select player...</option><option>Oliver</option><option>King</option><option>Soren</option><option>AJ</option><option>Isaac</option><option>Edward</option><option>Anderson</option><option>Micah J</option><option>Anthony H</option><option>Eduardo</option><option>Brennan</option><option>Pedro</option><option>Emilio</option><option>Big Ant</option><option>Bryce</option><option>Noah</option><option value="__other__">Other / New Player...</option></select>
+    <input class="form-input hidden" id="mu-player-other" type="text" placeholder="Enter name" style="margin-top:8px;">
   </div>
   <div class="form-group">
     <label class="form-label">Score (reps completed)</label>
@@ -854,7 +856,7 @@ async function loadTigerEye() {
 }
 
 async function logTigerEye() {
-  const player = document.getElementById('te-player').value;
+  const player = resolvePlayer('te');
   const ts = document.getElementById('te-time').value.trim();
   const rounds = parseInt(document.getElementById('te-rounds').value);
   if (!player) { toast('Select a player', 'error'); return; }
@@ -867,6 +869,8 @@ async function logTigerEye() {
     await sb('tiger_eye_scores', { method:'POST', body: JSON.stringify({ player, time_seconds:secs, rounds, logged_at: new Date().toISOString() }) });
     toast(player + ' — ' + ts + ' logged ✓', 'success');
     document.getElementById('te-player').value = '';
+    document.getElementById('te-player-other').value = '';
+    document.getElementById('te-player-other').classList.add('hidden');
     document.getElementById('te-time').value = '';
     loadTigerEye();
   } catch(e) { toast('Save failed. Check connection.', 'error'); }
@@ -892,7 +896,7 @@ async function loadMUTest() {
 }
 
 async function logMUTest() {
-  const player = document.getElementById('mu-player').value;
+  const player = resolvePlayer('mu');
   const score = parseInt(document.getElementById('mu-score').value);
   const date = document.getElementById('mu-date').value;
   if (!player) { toast('Select a player', 'error'); return; }
@@ -905,6 +909,8 @@ async function logMUTest() {
     const lvl = score>=20?'Varsity':score>=15?'JV':score>=12?'Freshman':'Needs Work';
     toast(player + ' — ' + score + ' (' + lvl + ') ✓', 'success');
     document.getElementById('mu-player').value = '';
+    document.getElementById('mu-player-other').value = '';
+    document.getElementById('mu-player-other').classList.add('hidden');
     document.getElementById('mu-score').value = '';
     loadMUTest();
   } catch(e) { toast('Save failed. Check connection.', 'error'); }
@@ -916,6 +922,21 @@ function showSprint(id, btn) {
   document.querySelectorAll('#tab-sprints .pill').forEach(p => p.classList.remove('active'));
   document.getElementById('sprint-' + id).classList.remove('hidden');
   if (btn) btn.classList.add('active');
+}
+
+function toggleOther(prefix) {
+  const sel = document.getElementById(prefix + '-player');
+  const inp = document.getElementById(prefix + '-player-other');
+  if (sel.value === '__other__') inp.classList.remove('hidden');
+  else inp.classList.add('hidden');
+}
+
+function resolvePlayer(prefix) {
+  const sel = document.getElementById(prefix + '-player');
+  if (sel.value === '__other__') {
+    return document.getElementById(prefix + '-player-other').value.trim();
+  }
+  return sel.value;
 }
 
 /* TOAST */
