@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Stivers Tigers — Field Guide</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --tiger-orange: #f5a623;
+    --tiger-black: #111111;
+    --green-dark: #1a3d2b;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --surface3: #262626;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.15);
+    --text-primary: #f0f0f0;
+    --text-secondary: #999;
+    --text-muted: #555;
+    --red: #e63946;
+    --amber: #f5a623;
+    --blue: #4895ef;
+    --purple: #a78bfa;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--black);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .header {
+    background: var(--tiger-black);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-inner { display: flex; align-items: center; height: 56px; gap: 12px; }
+  .logo {
+    width: 32px; height: 32px; background: var(--tiger-orange);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 900; color: var(--black); flex-shrink: 0; letter-spacing: -1px;
+  }
+  .header-title { font-size: 15px; font-weight: 600; }
+  .header-sub { font-size: 11px; color: var(--text-secondary); margin-top: 1px; }
+  .nav {
+    display: flex; gap: 4px; padding: 12px 16px;
+    overflow-x: auto; scrollbar-width: none;
+    border-bottom: 1px solid var(--border); background: var(--tiger-black);
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex-shrink: 0; padding: 7px 14px; border-radius: 20px;
+    border: 1px solid var(--border-strong); background: transparent;
+    color: var(--text-secondary); font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.15s; white-space: nowrap;
+  }
+  .nav-btn.active { background: var(--tiger-orange); color: var(--black); border-color: var(--tiger-orange); font-weight: 700; }
+  .main { padding: 16px; max-width: 600px; margin: 0 auto; }
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px;
+  }
+  .card-accent-orange { border-left: 3px solid var(--tiger-orange); }
+  .card-accent-green { border-left: 3px solid var(--green-light); }
+  .card-accent-red { border-left: 3px solid var(--red); }
+  .card-title {
+    font-size: 13px; font-weight: 600; color: var(--text-primary);
+    margin-bottom: 8px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .card-body { font-size: 12px; color: var(--text-secondary); line-height: 1.75; }
+  .badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 10px; letter-spacing: .04em;
+  }
+  .badge-orange { background: rgba(245,166,35,0.15); color: var(--tiger-orange); }
+  .badge-red { background: rgba(230,57,70,0.15); color: var(--red); }
+  .badge-green { background: rgba(82,183,136,0.15); color: var(--green-light); }
+  .badge-blue { background: rgba(72,149,239,0.15); color: var(--blue); }
+  .pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .pill {
+    padding: 5px 13px; border-radius: 16px; border: 1px solid var(--border-strong);
+    background: transparent; color: var(--text-secondary); font-size: 12px;
+    font-weight: 500; cursor: pointer; transition: all 0.12s;
+  }
+  .pill.active { background: var(--green-dark); border-color: var(--green-light); color: var(--green-light); }
+  .sprint-item {
+    display: flex; align-items: flex-start; gap: 10px; padding: 6px 0;
+    border-bottom: 1px solid var(--border); font-size: 12px;
+    color: var(--text-secondary); line-height: 1.5;
+  }
+  .sprint-item:last-child { border-bottom: none; }
+  .sprint-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--tiger-orange); margin-top: 6px; flex-shrink: 0; }
+  .fatigue-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--red); border-radius: var(--radius);
+    padding: 14px 16px; margin-bottom: 10px; cursor: default;
+    transition: border-color 0.15s;
+  }
+  .fatigue-card:hover { border-color: var(--red); border-left-color: var(--red); }
+  .fatigue-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+  .fatigue-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+  .fatigue-meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .stat-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { color: var(--text-secondary); }
+  .stat-val { color: var(--text-primary); font-weight: 600; }
+  .lb-row { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); gap: 12px; }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-rank { font-size: 13px; font-weight: 700; color: var(--text-muted); min-width: 28px; text-align: center; }
+  .lb-rank.gold { color: #f5a623; }
+  .lb-rank.silver { color: #bbb; }
+  .lb-rank.bronze { color: #cd7f32; }
+  .lb-name { font-size: 14px; font-weight: 600; color: var(--text-primary); flex: 1; }
+  .lb-time { font-size: 15px; font-weight: 800; color: var(--green-light); font-variant-numeric: tabular-nums; }
+  .lb-meta { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+  .mu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .mu-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 12px; text-align: center;
+  }
+  .mu-num { font-size: 26px; font-weight: 900; margin-bottom: 4px; }
+  .mu-label { font-size: 10px; font-weight: 700; color: var(--text-secondary); letter-spacing: .06em; text-transform: uppercase; }
+  .form-group { margin-bottom: 14px; }
+  .form-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; display: block; letter-spacing: .05em; text-transform: uppercase; }
+  .form-input, .form-select {
+    width: 100%; padding: 11px 13px;
+    background: var(--surface2); border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm); color: var(--text-primary);
+    font-size: 14px; outline: none; transition: border-color 0.15s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .form-input:focus, .form-select:focus { border-color: var(--tiger-orange); }
+  .form-select option { background: #222; }
+  .btn-primary {
+    width: 100%; padding: 14px; background: var(--tiger-orange);
+    border: none; border-radius: var(--radius-sm); color: var(--black);
+    font-size: 15px; font-weight: 800; cursor: pointer; letter-spacing: .02em;
+    transition: opacity 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+  .info-box {
+    background: rgba(245,166,35,0.07); border: 1px solid rgba(245,166,35,0.25);
+    border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 14px;
+  }
+  .info-text { font-size: 12px; color: var(--amber); line-height: 1.65; }
+  .note-box {
+    background: rgba(230,57,70,0.07); border: 1px solid rgba(230,57,70,0.2);
+    border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 14px;
+  }
+  .note-text { font-size: 11px; color: #e88; line-height: 1.65; }
+  .divider { height: 1px; background: var(--border); margin: 18px 0; }
+  .loading { text-align: center; padding: 32px; color: var(--text-muted); font-size: 13px; }
+  .week-header {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 9px 14px; margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .week-title { font-size: 12px; font-weight: 700; color: var(--text-primary); }
+  .week-dates { font-size: 10px; color: var(--text-muted); }
+  .sess-card {
+    border-radius: 8px; padding: 10px 12px; margin-bottom: 6px;
+    border: 1px solid var(--border); background: var(--surface);
+  }
+  .sess-top { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .sess-num { font-size: 10px; font-weight: 700; color: var(--text-muted); }
+  .sess-tag { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 8px; }
+  .sess-topic { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+  .sess-keys { font-size: 11px; color: var(--text-secondary); line-height: 1.65; }
+  .score-table { width: 100%; border-collapse: collapse; }
+  .score-table th { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; text-align: left; padding: 8px 4px 6px; border-bottom: 1px solid var(--border); }
+  .score-table td { font-size: 12px; color: var(--text-secondary); padding: 9px 4px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .score-table tr:last-child td { border-bottom: none; }
+  .score-num { font-size: 16px; font-weight: 800; color: var(--tiger-orange); text-align: right; }
+  .refresh-btn { font-size: 11px; color: var(--tiger-orange); background: none; border: none; cursor: pointer; font-weight: 700; padding: 0; }
+  .flex-between { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .hidden { display: none !important; }
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--surface3); border: 1px solid var(--border-strong);
+    color: var(--text-primary); padding: 10px 20px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; z-index: 999;
+    transition: transform 0.25s ease; white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.success { border-color: var(--green-light); color: var(--green-light); }
+  .toast.error { border-color: var(--red); color: var(--red); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mini-card { background: var(--surface2); border-radius: 8px; padding: 10px 12px; }
+  .mini-label { font-size: 11px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+  .mini-val { font-size: 11px; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">ST</div>
+    <div>
+      <div class="header-title">Stivers Tigers</div>
+      <div class="header-sub">Coach Rozier — Field Guide 2026</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="showTab('offseason',this)">June Sessions</button>
+  <button class="nav-btn" onclick="showTab('fatigue',this)">Fatigue Menu</button>
+  <button class="nav-btn" onclick="showTab('heat',this)">Heat Day</button>
+  <button class="nav-btn" onclick="showTab('curriculum',this)">Curriculum</button>
+  <button class="nav-btn" onclick="showTab('tiger-eye',this)">Tiger Eye 🔥</button>
+  <button class="nav-btn" onclick="showTab('mu-test',this)">MU Test</button>
+</div>
+
+<div class="main">
+
+<!-- JUNE OFFSEASON -->
+<div id="tab-offseason">
+  <p class="section-label">June Offseason — Session Structure</p>
+  <div class="info-box">
+    <div class="info-text">3–4 sessions/week &nbsp;·&nbsp; 2 hours each &nbsp;·&nbsp; Jun 8–Jul 3<br>Three-station rotation runs every session.</div>
+  </div>
+  <div class="pill-row">
+    <button class="pill active" onclick="showDay('monwed',this)">Mon / Wed</button>
+    <button class="pill" onclick="showDay('tuethu',this)">Tue / Thu</button>
+  </div>
+
+  <div id="day-monwed">
+    <div class="card card-accent-orange">
+      <div class="card-title">⚡ 1 — Sprint Training <span class="badge badge-orange">PLAYERS FRESH</span></div>
+      <div class="card-body">
+        Mix and match each session:
+        <div style="margin-top:10px;">
+          <div class="sprint-item"><div class="sprint-dot"></div>3×20m — 2 min rest · deceleration focus</div>
+          <div class="sprint-item"><div class="sprint-dot"></div>3–4×10m preceded by 5-yard pogo jumps</div>
+          <div class="sprint-item"><div class="sprint-dot"></div>2× curved runs along the D</div>
+          <div class="sprint-item"><div class="sprint-dot"></div>2–3×10m from knees</div>
+          <div class="sprint-item"><div class="sprint-dot"></div>10m hill climbs</div>
+        </div>
+        <div style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border); font-size:11px; color:var(--text-muted);">Volume: ~150m Wk 1 → 220–240m Wk 3.5</div>
+      </div>
+    </div>
+    <div class="card card-accent-green">
+      <div class="card-title">↻ 2 — Three-Station Rotation</div>
+      <div class="card-body">
+        <div class="two-col" style="margin-top:4px;">
+          <div class="mini-card"><div class="mini-label">Coach CK</div><div class="mini-val">Ball mastery</div></div>
+          <div class="mini-card"><div class="mini-label">Coach P</div><div class="mini-val">1v1 brackets</div></div>
+          <div class="mini-card" style="grid-column:span 2;"><div class="mini-label">Coach Rozier — floats</div><div class="mini-val">2v1 · game context · SSGs if time allows</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-accent-red">
+      <div class="card-title" style="color:var(--red);">🔥 3 — Fatigue Training <span class="badge badge-red">NON-NEGOTIABLE CLOSE</span></div>
+      <div class="card-body">See <strong style="color:var(--text-primary);">Fatigue Menu</strong> tab — pick one. Closes every session. No exceptions.</div>
+    </div>
+  </div>
+
+  <div id="day-tuethu" class="hidden">
+    <div class="card card-accent-green">
+      <div class="card-title">💚 1 — Extended Warmup</div>
+      <div class="card-body">
+        From Coach Rozier's warmup book. Plyo and SAQ on alternating schedule:
+        <div class="two-col" style="margin-top:10px;">
+          <div class="mini-card"><div class="mini-label" style="color:var(--tiger-orange);">ODD WEEKS</div><div class="mini-val">Tue = Plyometrics<br>Thu = SAQ</div></div>
+          <div class="mini-card"><div class="mini-label" style="color:var(--blue);">EVEN WEEKS</div><div class="mini-val">Tue = SAQ<br>Thu = Plyometrics</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-accent-green">
+      <div class="card-title">↻ 2 — Three-Station Rotation</div>
+      <div class="card-body">
+        <div class="two-col" style="margin-top:4px;">
+          <div class="mini-card"><div class="mini-label">Coach CK</div><div class="mini-val">Ball mastery</div></div>
+          <div class="mini-card"><div class="mini-label">Coach P</div><div class="mini-val">1v1 brackets</div></div>
+          <div class="mini-card" style="grid-column:span 2;"><div class="mini-label">Coach Rozier — floats</div><div class="mini-val">2v1 · game context · SSGs if time allows</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-accent-red">
+      <div class="card-title" style="color:var(--red);">🔥 3 — Fatigue Training <span class="badge badge-red">NON-NEGOTIABLE CLOSE</span></div>
+      <div class="card-body">See <strong style="color:var(--text-primary);">Fatigue Menu</strong> tab — pick one. Every session. No exceptions.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px; padding-top:12px; border-top:1px solid var(--border); font-size:11px; color:var(--text-muted);">
+    Wk 1: Jun 8–11 &nbsp;·&nbsp; Wk 2: Jun 16–19 &nbsp;·&nbsp; Wk 3: Jun 23–26 &nbsp;·&nbsp; Wk 3.5: Jun 30–Jul 3
+  </div>
+</div>
+
+<!-- FATIGUE MENU -->
+<div id="tab-fatigue" class="hidden">
+  <p class="section-label">Fatigue Training Menu</p>
+  <div class="info-box">
+    <div class="info-text">Closes every session. Non-negotiable. Rotate options — keep them guessing. Goal: leave them completely gassed.</div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">🔥 The Grind — 300-Yard Shuttle</div>
+    <div class="fatigue-desc">6×50 yards — no rest between reps. Time each set. Rest 90 sec, then repeat for 3 rounds total. Losers of each heat run an extra set before rest. Simple. Nasty.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">~12 min</span><span class="badge badge-orange">All positions</span></div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">⚡ Death by 10 Meters</div>
+    <div class="fatigue-desc">EMOM: minute 1 = 1×10m, minute 2 = 2×10m, minute 3 = 3×10m. Keep going until they can't complete the reps within the minute. Humbling. Works every time.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">Until failure</span><span class="badge badge-orange">All positions</span></div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">🐯 Tiger Runs — Sideline to Sideline</div>
+    <div class="fatigue-desc">Full field width, 10 reps straight. Jog back is the only rest. Coach calls the pace — anything less than full effort means run it again. No discussion.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">~8 min</span><span class="badge badge-orange">All positions</span></div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">💀 Pyramid of Pain</div>
+    <div class="fatigue-desc">Sprint 10m back · 20m back · 30m back · 40m back — then back down. No rest except jogging back. One round. Two rounds if they looked comfortable at the top.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">~6–8 min</span><span class="badge badge-orange">All positions</span></div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">🏃 Hell Intervals — 2-Minute Rounds</div>
+    <div class="fatigue-desc">4 rounds: 30 sec all-out (back and forth across the box) → 30 sec jog → 30 sec all-out → 30 sec rest. Coach watches the effort. Low effort = extra round. Period.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">~12 min</span><span class="badge badge-orange">All positions</span></div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">🔥 The Snake — Full Field Runs</div>
+    <div class="fatigue-desc">End to end, 6 reps. Next rep starts when the last player finishes — no set rest. Fastest players lead. Slowest players feel every second of that. Coach stands at midfield. Just watches.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">~10 min</span><span class="badge badge-orange">All positions</span></div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">🎯 The Box — 4-Corner Suicide</div>
+    <div class="fatigue-desc">40×40 box. Sprint the full perimeter. First to finish = done. Everyone else keeps going until they finish. 4 rounds. Losers each round: 5 burpees before the next one starts.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">~10 min</span><span class="badge badge-orange">Competitive</span></div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">⚔️ 1v1 Survival Runs</div>
+    <div class="fatigue-desc">Pair players by position. Race 40m — loser runs the width while winner rests. 6 heats per pairing. Fastest pair at the end gets a 60-sec break. Slowest pair? One more run.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">~12 min</span><span class="badge badge-orange">Competitive</span></div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">🧱 Bricks — Penalty Box Repeats</div>
+    <div class="fatigue-desc">Sprint the penalty box perimeter — both directions. 8 reps. No rest between reps 1–4. 60 sec rest. No rest between reps 5–8. Anyone who quits runs the full field width twice.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">~10 min</span><span class="badge badge-orange">All positions</span></div>
+  </div>
+</div>
+
+<!-- HEAT DAY -->
+<div id="tab-heat" class="hidden">
+  <p class="section-label">Heat Day Protocol</p>
+  <div class="info-box">
+    <div class="info-text">☀️ Pre-decided. No improvisation. Flip to this tab — run it exactly as written.</div>
+  </div>
+  <div class="card card-accent-orange">
+    <div class="card-title">Part 1 — Resistance Band Circuit</div>
+    <div class="card-body">
+      <div class="sprint-item"><div class="sprint-dot"></div>Lateral band walks</div>
+      <div class="sprint-item"><div class="sprint-dot"></div>Monster walks</div>
+      <div class="sprint-item"><div class="sprint-dot"></div>Standing hip abduction</div>
+      <div class="sprint-item"><div class="sprint-dot"></div>Banded squats</div>
+      <div class="sprint-item"><div class="sprint-dot"></div>Single-leg RDLs</div>
+      <div class="sprint-item"><div class="sprint-dot"></div>Banded glute bridges</div>
+      <div class="sprint-item"><div class="sprint-dot"></div>Clamshells</div>
+      <div class="sprint-item"><div class="sprint-dot"></div>Pallof press</div>
+    </div>
+  </div>
+  <div class="card card-accent-green">
+    <div class="card-title">Part 2 — Futsal</div>
+    <div class="card-body">Small-sided. Controlled environment. Keep moving, keep it smart. Portable goal makes any space work.</div>
+  </div>
+  <div class="note-box">
+    <div class="note-text">⚠️ SOREN — Inhaler must be present every single session. Scale proactively on heat and hard weather days. No exceptions.</div>
+  </div>
+</div>
+
+<!-- CURRICULUM -->
+<div id="tab-curriculum" class="hidden">
+  <p class="section-label">Season Curriculum — 4-4-2 Flat</p>
+  <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px;">
+    <span class="badge badge-red">A→D Transition</span>
+    <span class="badge badge-blue">Pre-Reception Scanning</span>
+    <span class="badge badge-green">Aerial Receiving (Wide MFs)</span>
+  </div>
+  <div class="pill-row">
+    <button class="pill active" onclick="showBlock('b1',this)">Block 1</button>
+    <button class="pill" onclick="showBlock('b2',this)">Block 2</button>
+    <button class="pill" onclick="showBlock('b3',this)">Block 3</button>
+    <button class="pill" onclick="showBlock('b4',this)">Tourney</button>
+  </div>
+  <div id="block-b1"></div>
+  <div id="block-b2" class="hidden"></div>
+  <div id="block-b3" class="hidden"></div>
+  <div id="block-b4" class="hidden">
+    <div class="card card-accent-orange">
+      <div class="card-title">Oct 6–12 — Tournament Prep</div>
+      <div class="card-body">No new concepts. Sharpen only. Focus on overall style and outstanding individual needs.<br><br>Oct 13 onward: Results only. Trust what was built. The press standard doesn't drop in knockout games — it rises.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TIGER EYE -->
+<div id="tab-tiger-eye" class="hidden">
+  <p class="section-label">Tiger Eye Leaderboard 🔥</p>
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">Full Standard — 4 Rounds</div>
+    <div class="card-body">
+      <div class="stat-row"><span class="stat-label">Squat jumps</span><span class="stat-val">20</span></div>
+      <div class="stat-row"><span class="stat-label">Push-ups</span><span class="stat-val">15</span></div>
+      <div class="stat-row"><span class="stat-label">Burpees</span><span class="stat-val">10</span></div>
+      <div class="stat-row"><span class="stat-label">Sideline sprint</span><span class="stat-val">and back</span></div>
+    </div>
+  </div>
+
+  <div class="flex-between">
+    <div class="section-label" style="margin:0;">Live Leaderboard</div>
+    <button class="refresh-btn" onclick="loadTigerEye()">↻ Refresh</button>
+  </div>
+  <div id="te-board" style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:0 16px; margin-bottom:20px;">
+    <div class="loading">Loading...</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">Log a New Time</div>
+  <div class="form-group">
+    <label class="form-label">Player</label>
+    <select class="form-select" id="te-player"><option value="">Select player...</option><option>Oliver</option><option>King</option><option>Soren</option><option>AJ</option><option>Isaac</option><option>Edward</option><option>Anderson</option><option>Micah J</option><option>Anthony H</option><option>Eduardo</option><option>Brennan</option><option>Pedro</option><option>Emilio</option><option>Big Ant</option><option>Bryce</option><option>Noah</option></select>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Time (mm:ss)</label>
+    <input class="form-input" id="te-time" type="text" placeholder="e.g. 5:23" inputmode="decimal">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Rounds completed</label>
+    <select class="form-select" id="te-rounds"><option value="4">4 — full standard</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select>
+  </div>
+  <button class="btn-primary" onclick="logTigerEye()" id="te-btn">Log Time</button>
+</div>
+
+<!-- MU TEST -->
+<div id="tab-mu-test" class="hidden">
+  <p class="section-label">Manchester United Test</p>
+  <div class="info-box">
+    <div class="info-text">Down and back in 60 seconds, repeated until player misses the line. Formal benchmark — run periodically leading up to tryouts. NOT a regular session finisher.</div>
+  </div>
+  <div class="mu-grid">
+    <div class="mu-card"><div class="mu-num" style="color:var(--green-light);">20+</div><div class="mu-label">Varsity</div></div>
+    <div class="mu-card"><div class="mu-num" style="color:var(--blue);">15+</div><div class="mu-label">JV</div></div>
+    <div class="mu-card"><div class="mu-num" style="color:var(--amber);">12+</div><div class="mu-label">Freshman</div></div>
+    <div class="mu-card"><div class="mu-num" style="color:var(--red);">&lt;9</div><div class="mu-label">Needs Work</div></div>
+  </div>
+
+  <div class="flex-between">
+    <div class="section-label" style="margin:0;">Score History</div>
+    <button class="refresh-btn" onclick="loadMUTest()">↻ Refresh</button>
+  </div>
+  <div id="mu-history" style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:0 16px; margin-bottom:20px;">
+    <div class="loading">Loading...</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">Log a Test Result</div>
+  <div class="form-group">
+    <label class="form-label">Player</label>
+    <select class="form-select" id="mu-player"><option value="">Select player...</option><option>Oliver</option><option>King</option><option>Soren</option><option>AJ</option><option>Isaac</option><option>Edward</option><option>Anderson</option><option>Micah J</option><option>Anthony H</option><option>Eduardo</option><option>Brennan</option><option>Pedro</option><option>Emilio</option><option>Big Ant</option><option>Bryce</option><option>Noah</option></select>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Score (reps completed)</label>
+    <input class="form-input" id="mu-score" type="number" placeholder="e.g. 18" inputmode="numeric" min="0" max="60">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Test date</label>
+    <input class="form-input" id="mu-date" type="date">
+  </div>
+  <button class="btn-primary" onclick="logMUTest()" id="mu-btn">Log Score</button>
+</div>
+
+</div><!-- /main -->
+<div class="toast" id="toast"></div>
+
+<script>
+const SB_URL = 'https://ypezbqnhpklppspkzrrn.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZXpicW5ocGtscHBzcGt6cnJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Mjc2NTMsImV4cCI6MjA5NjEwMzY1M30.K06pKjoqBAEbHi7SM_jyXMrRlppBTguf1l4lytJODoc';
+const HDR = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+
+async function sb(path, opts) {
+  const r = await fetch(SB_URL + '/rest/v1/' + path, { headers: HDR, ...opts });
+  if (!r.ok) throw new Error(r.status);
+  return r.json();
+}
+
+/* TABS */
+function showTab(id, btn) {
+  document.querySelectorAll('[id^="tab-"]').forEach(e => e.classList.add('hidden'));
+  document.querySelectorAll('.nav-btn').forEach(e => e.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.remove('hidden');
+  if (btn) btn.classList.add('active');
+  if (id === 'tiger-eye') loadTigerEye();
+  if (id === 'mu-test') { loadMUTest(); try { document.getElementById('mu-date').valueAsDate = new Date(); } catch(e){} }
+  if (id === 'curriculum') renderBlock('b1');
+}
+
+function showDay(id, btn) {
+  ['monwed','tuethu'].forEach(d => document.getElementById('day-' + d).classList.add('hidden'));
+  document.getElementById('day-' + id).classList.remove('hidden');
+  document.querySelectorAll('#tab-offseason .pill').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+/* CURRICULUM */
+const B = {
+  b1: { label:'Block 1 — Pre-Season', dates:'July 7–23 · 2.5 weeks · Daily sessions',
+    mission:'Introduce the complete 4-4-2 game model. Establish scanning from Day 1. Plant the A→D foundation. Begin aerial receiving work for Brennan and Micah J.',
+    weeks:[
+      { w:'Week 1', d:'July 7–11', ss:[
+        {n:'1–2', t:'', tp:'Game Model — In Possession 4-4-2', k:'Shape, spacing, roles of all 10. Build from back — GK as 11th. Two forward relationship.'},
+        {n:'3', t:'atd', tp:'Game Model — A→D Transition', k:'First presser reacts immediately. Midfield tucks. Back four holds. No ball-watching.'},
+        {n:'4', t:'', tp:'Aerial Receiving — Low Pressure (Brennan + Micah J)', k:'High volume reps. No pressure. Build coordination and confidence.'},
+        {n:'5–6', t:'', tp:'Game Model — Out of Possession 4-4-2', k:'Two compact banks of four. Press triggers. Mid-block shape.'},
+        {n:'Psych', t:'psych', tp:'5 C\'s + Commitment', k:'Team culture expectations. Individual accountability.'}
+      ]},
+      { w:'Week 2', d:'July 14–18', ss:[
+        {n:'1–2', t:'', tp:'Game Model — D→A Transition', k:'Three counter-attack options. Recognize the moment. Quick decision.'},
+        {n:'3', t:'atd', tp:'A→D — Reacting Quickly to Losing the Ball', k:'Recognizing transition before it happens. Pressing skills. Recovery runs.'},
+        {n:'4', t:'', tp:'Aerial Receiving — Passive Pressure (Brennan + Micah J)', k:'Defender present, not fully active. Receive, control, play out.'},
+        {n:'5–6', t:'', tp:'Playing Out From the Back Under Press', k:'GK distribution. CB decisions. Short vs long. Central MF availability.'},
+        {n:'Psych', t:'psych', tp:'Effort + Team Cohesion', k:'Standards reinforced. Build early togetherness.'}
+      ]},
+      { w:'Week 3', d:'July 21–23 · Pre-Tournament', ss:[
+        {n:'1–2', t:'', tp:'Full 4-4-2 Shape — All Four Phases Connected', k:'Full game scenarios. All phases flow. Fix shape and communication.'},
+        {n:'3', t:'atd', tp:'A→D — Recovering into Shape', k:'When press isn\'t available. Recover to shape. Then press.'},
+        {n:'4–5', t:'', tp:'Tournament Prep — Set Pieces + Scenarios', k:'Defensive and attacking set pieces. Game management. Roles and responsibilities.'},
+        {n:'Psych', t:'psych', tp:'Confidence + Composure', k:'Mental prep for first competitive games. Managing nerves.'}
+      ]}
+    ]
+  },
+  b2: { label:'Block 2 — Early Season', dates:'July 28–Sept 1 · Regular season begins Aug 14',
+    mission:'Build detail within each phase. Deepen A→D. Activate Planning Funnel weekly. Scanning is now the expected standard — not introduced, just enforced.',
+    weeks:[
+      { w:'Week 4', d:'July 28–Aug 1 · Post-Tournament', ss:[
+        {n:'Ep 1', t:'funnel', tp:'Planning Funnel — From Tournament Film', k:'Walk Game → Analysis → Phase → Element → Scene → Training Form.'},
+        {n:'1–2', t:'atd', tp:'A→D — Reacting Quickly + Press Triggers', k:'When to press vs recover. First defender sets the trigger. Four tactical triggers.'},
+        {n:'3–4', t:'', tp:'Switching the Point of Attack — In Possession', k:'Build one side, switch play, finish from the other. Wide midfielders\' role.'},
+        {n:'Psych', t:'psych', tp:'Effort + Eagerness to Engage', k:'First competitive stretch approaching. Standards and energy.'}
+      ]},
+      { w:'Week 5', d:'Aug 4–8', ss:[
+        {n:'1–2', t:'', tp:'Defending Compactly as a Team', k:'Making the pitch small. Play predictable. Preventing forward passes. 4-4-2 mid-block.'},
+        {n:'3', t:'atd', tp:'A→D — Wide Midfielder Recovery Runs', k:'Wide MFs tuck in on loss immediately. Deny wide options. Cover the channel.'},
+        {n:'4–5', t:'', tp:'Creating Scoring Opportunities in Final Third', k:'Quick combination play around the box. Penetrative passes in behind.'},
+        {n:'Ep 2', t:'funnel', tp:'Planning Funnel — From Last Match', k:'Game → Analysis → Phase → Element → Scene → Training Form.'},
+        {n:'Psych', t:'psych', tp:'Team Cohesion + Composure', k:'Regular season starting. Managing competitive pressure.'}
+      ]},
+      { w:'Week 6', d:'Aug 11–15 · Season opens Aug 14', ss:[
+        {n:'1–2', t:'', tp:'When to Press / When to Drop', k:'Poor possession — press. Good possession — drop. Team takes trigger from first defender.'},
+        {n:'3', t:'atd', tp:'A→D — Recovering into Shape (Revisit)', k:'Cannot press immediately. Recover to 4-4-2. Then press from shape.'},
+        {n:'4–5', t:'', tp:'Playing Out From the Back — Live Pressure', k:'GK, CBs, central MF. Now with live defenders. Direct option introduced.'},
+        {n:'Ep 3', t:'funnel', tp:'Planning Funnel — From Last Match', k:'Game → Analysis → Phase → Element → Scene → Training Form.'},
+        {n:'Psych', t:'psych', tp:'Composure + Spring in the Step', k:'First regular season games. Energy and focus management.'}
+      ]},
+      { w:'Week 7', d:'Aug 18–22', ss:[
+        {n:'1–2', t:'', tp:'Switching the Point of Attack — Advanced', k:'Build under pressure. Switch through midfield. Wide MFs and forwards connect.'},
+        {n:'3', t:'atd', tp:'A→D — Recovering Quickly to Defend the Goal', k:'Recovery run between ball and goal. Delay, Deny, Dictate.'},
+        {n:'4–5', t:'', tp:'D→A — Counter-Attack Quickly', k:'Recognize the moment. Pass, run, or carry. First forward springs the counter.'},
+        {n:'Ep 4', t:'funnel', tp:'Planning Funnel — From Last Match', k:'Game → Analysis → Phase → Element → Scene → Training Form.'},
+        {n:'Psych', t:'psych', tp:'Encouraging Others + Commitment', k:'Mid-early season. Team culture maintenance.'}
+      ]},
+      { w:'Week 8', d:'Aug 25–29', ss:[
+        {n:'1–2', t:'', tp:'IDP Mid-Check — Individual Development Review', k:'Brennan + Micah J aerial progress. Oliver CF standards. Scanning habit: who has it, who doesn\'t.'},
+        {n:'3', t:'atd', tp:'A→D — Full Team Transition Game', k:'Game realistic. Ball lost in various zones. Full team response. Coach and freeze.'},
+        {n:'4–5', t:'', tp:'Aerial Receiving — Live Pressure (Brennan + Micah J)', k:'Full live defender. Receive long ball with pressure. Play out or hold up.'},
+        {n:'Ep 5', t:'funnel', tp:'Planning Funnel — From Last Match', k:'Game → Analysis → Phase → Element → Scene → Training Form.'},
+        {n:'Psych', t:'psych', tp:'Spring in the Step + Body Language', k:'Approaching mid-season. Positive energy reinforcement.'}
+      ]}
+    ]
+  },
+  b3: { label:'Block 3 — Mid/Late Season', dates:'Sept 2–Oct 5 · IDP formal checkpoint: early Sept',
+    mission:'Most sophisticated block. Players know the system. Sessions get more game-realistic. A→D advances to decision-making under pressure — not just reaction.',
+    weeks:[
+      { w:'Week 9', d:'Sept 2–5 · IDP Formal Review', ss:[
+        {n:'IDP', t:'funnel', tp:'Formal Block 1 & 2 Individual Review', k:'Oliver: CF standards + leadership. Brennan: aerial progress. Micah J: aerial consistency. Squad: scanning habit status.'},
+        {n:'1–2', t:'', tp:'Defending When Outnumbered / Disorganized', k:'Delay, Deny, Dictate. Defend the goal however necessary.'},
+        {n:'3', t:'atd', tp:'A→D — Decision: Press Immediately vs Recover', k:'Count numbers. Press available? Press. If not — recover and shape up.'},
+        {n:'Ep 6', t:'funnel', tp:'Planning Funnel — From Last Match', k:'Game → Analysis → Phase → Element → Scene → Training Form.'},
+        {n:'Psych', t:'psych', tp:'Eagerness to Engage + Switching On', k:'Mid-season energy management. Staying sharp.'}
+      ]},
+      { w:'Week 10', d:'Sept 8–12', ss:[
+        {n:'1–2', t:'', tp:'Critical Defending — In and Around the Box', k:'Body position between ball and goal. Emergency blocks and tackles. In position — win it.'},
+        {n:'3', t:'atd', tp:'A→D — Compact Shape, Immediate Response', k:'Play compact in possession so A→D shape is already set. Prepare to lose the ball.'},
+        {n:'4–5', t:'', tp:'D→A — Counter vs Build', k:'Is the counter available? Numbers and space. If not — retain and build patiently.'},
+        {n:'Ep 7', t:'funnel', tp:'Planning Funnel — From Last Match', k:'Game → Analysis → Phase → Element → Scene → Training Form.'},
+        {n:'Psych', t:'psych', tp:'Composure + Encourage Others', k:'Late regular season. Seeding implications. Keep standards.'}
+      ]},
+      { w:'Week 11', d:'Sept 15–19', ss:[
+        {n:'1–2', t:'', tp:'Defending Deep in Low Block to Counter', k:'Compact and deep. Opponent struggles to penetrate. Spring counter on regain.'},
+        {n:'3', t:'atd', tp:'A→D — Full Game Transition Scrimmage', k:'Coach A→D moments only. Stop on every transition failure. Full game speed.'},
+        {n:'4–5', t:'', tp:'Critical Attacking — Finishing From Crosses', k:'Quality and variety of cross. Movement from attackers. Early one-touch finishes.'},
+        {n:'Ep 8', t:'funnel', tp:'Planning Funnel — From Last Match', k:'Game → Analysis → Phase → Element → Scene → Training Form.'},
+        {n:'Psych', t:'psych', tp:'Energetic + Body Language', k:'Late season energy. Visual presence on the field.'}
+      ]},
+      { w:'Week 12', d:'Sept 22–26', ss:[
+        {n:'1–2', t:'', tp:'Critical Defending — Defending Crosses', k:'Stop the cross. Positioning when defending. Collecting the second ball.'},
+        {n:'3', t:'atd', tp:'A→D — Player-Specific Scenarios', k:'Tailor to IDP and game film. Specific player roles in transition addressed.'},
+        {n:'4–5', t:'', tp:'D→A — Countering in Three Ways (Refinement)', k:'One long pass. Several short quick passes. Run with the ball. Refine all three.'},
+        {n:'Ep 9', t:'funnel', tp:'Planning Funnel — From Last Match', k:'Game → Analysis → Phase → Element → Scene → Training Form.'},
+        {n:'Psych', t:'psych', tp:'Switching On + Commitment', k:'Final regular season push. Tournament seeding on the line.'}
+      ]},
+      { w:'Week 13', d:'Sept 29–Oct 3 · Final Regular Season', ss:[
+        {n:'1–2', t:'', tp:'Overall Style Review — In Possession', k:'How do we look at our best in possession? Reconnect to the game model.'},
+        {n:'3', t:'atd', tp:'A→D — Full Season Callback', k:'Where did we start in July? Where are we now? Full team A→D at game speed.'},
+        {n:'4–5', t:'', tp:'Overall Style Review — Out of Possession + Transitions', k:'How do we look out of possession at our best? Full system review.'},
+        {n:'Ep 10', t:'funnel', tp:'Planning Funnel — Final Regular Season Match', k:'Last funnel session. Address outstanding issue before tournament.'},
+        {n:'Psych', t:'psych', tp:'Episodic — Whatever the Team Needs', k:'Read the room. Confidence, focus, belief, energy.'}
+      ]}
+    ]
+  }
+};
+
+const TAGS = {
+  atd: { bg:'rgba(230,57,70,0.12)', border:'#e63946', lbl:'A→D', tc:'#e63946' },
+  funnel: { bg:'rgba(72,149,239,0.10)', border:'#4895ef', lbl:'Funnel', tc:'#4895ef' },
+  psych: { bg:'rgba(167,139,250,0.10)', border:'#a78bfa', lbl:'Psych', tc:'#a78bfa' }
+};
+
+const rendered = {};
+function renderBlock(key) {
+  if (rendered[key]) return;
+  rendered[key] = true;
+  const el = document.getElementById('block-' + key);
+  if (!el || !B[key]) return;
+  const b = B[key];
+  let h = '<div class="card card-accent-orange" style="margin-bottom:14px;"><div class="card-title">' + b.label + '</div><div style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">' + b.dates + '</div><div class="card-body">' + b.mission + '</div></div>';
+  b.weeks.forEach(w => {
+    h += '<div class="week-header"><span class="week-title">' + w.w + '</span><span class="week-dates">' + w.d + '</span></div>';
+    w.ss.forEach(s => {
+      const tg = TAGS[s.t];
+      h += '<div class="sess-card" style="' + (tg ? 'background:' + tg.bg + '; border-color:' + tg.border + ';' : '') + '">';
+      h += '<div class="sess-top"><span class="sess-num">S' + s.n + '</span>' + (tg ? '<span class="sess-tag" style="background:' + tg.bg + '; color:' + tg.tc + ';">' + tg.lbl + '</span>' : '') + '</div>';
+      h += '<div class="sess-topic">' + s.tp + '</div><div class="sess-keys">' + s.k + '</div></div>';
+    });
+  });
+  el.innerHTML = h;
+}
+
+function showBlock(key, btn) {
+  ['b1','b2','b3','b4'].forEach(b => document.getElementById('block-' + b).classList.add('hidden'));
+  document.querySelectorAll('#tab-curriculum .pill').forEach(p => p.classList.remove('active'));
+  document.getElementById('block-' + key).classList.remove('hidden');
+  if (btn) btn.classList.add('active');
+  renderBlock(key);
+}
+
+/* TIGER EYE */
+async function loadTigerEye() {
+  const el = document.getElementById('te-board');
+  el.innerHTML = '<div class="loading">Loading...</div>';
+  try {
+    const data = await sb('tiger_eye_scores?select=player,time_seconds,rounds,logged_at&order=time_seconds.asc&limit=20');
+    if (!data || !data.length) { el.innerHTML = '<div class="loading">No times logged yet. Be first.</div>'; return; }
+    let h = '';
+    data.forEach((row, i) => {
+      const m = Math.floor(row.time_seconds / 60);
+      const s = String(row.time_seconds % 60).padStart(2,'0');
+      const rnk = i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
+      const rc = i===0?'gold':i===1?'silver':i===2?'bronze':'';
+      const dt = row.logged_at ? new Date(row.logged_at).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '';
+      h += '<div class="lb-row"><div class="lb-rank ' + rc + '">' + rnk + '</div><div class="lb-name">' + row.player + '</div><div style="text-align:right;"><div class="lb-time">' + m + ':' + s + '</div><div class="lb-meta">' + (row.rounds||4) + ' rds' + (dt?' · '+dt:'') + '</div></div></div>';
+    });
+    el.innerHTML = h;
+  } catch(e) { el.innerHTML = '<div class="loading" style="color:var(--red);">Could not load. Check connection.</div>'; }
+}
+
+async function logTigerEye() {
+  const player = document.getElementById('te-player').value;
+  const ts = document.getElementById('te-time').value.trim();
+  const rounds = parseInt(document.getElementById('te-rounds').value);
+  if (!player) { toast('Select a player', 'error'); return; }
+  const m = ts.match(/^(\d{1,2}):(\d{2})$/);
+  if (!m) { toast('Format: mm:ss (e.g. 5:23)', 'error'); return; }
+  const secs = parseInt(m[1])*60 + parseInt(m[2]);
+  const btn = document.getElementById('te-btn');
+  btn.disabled=true; btn.textContent='Saving...';
+  try {
+    await sb('tiger_eye_scores', { method:'POST', body: JSON.stringify({ player, time_seconds:secs, rounds, logged_at: new Date().toISOString() }) });
+    toast(player + ' — ' + ts + ' logged ✓', 'success');
+    document.getElementById('te-player').value = '';
+    document.getElementById('te-time').value = '';
+    loadTigerEye();
+  } catch(e) { toast('Save failed. Check connection.', 'error'); }
+  btn.disabled=false; btn.textContent='Log Time';
+}
+
+/* MU TEST */
+async function loadMUTest() {
+  const el = document.getElementById('mu-history');
+  el.innerHTML = '<div class="loading">Loading...</div>';
+  try {
+    const data = await sb('mu_test_scores?select=player,score,test_date&order=test_date.desc&limit=40');
+    if (!data || !data.length) { el.innerHTML = '<div class="loading">No test results logged yet.</div>'; return; }
+    let h = '<table class="score-table"><thead><tr><th>Player</th><th>Date</th><th style="text-align:right;">Score</th></tr></thead><tbody>';
+    data.forEach(row => {
+      const lvl = row.score>=20?'<span class="badge badge-green">Varsity</span>':row.score>=15?'<span class="badge badge-blue">JV</span>':row.score>=12?'<span class="badge badge-orange">Fresh</span>':'<span class="badge badge-red">Work</span>';
+      const dt = row.test_date ? new Date(row.test_date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—';
+      h += '<tr><td><strong style="color:var(--text-primary);">' + row.player + '</strong> ' + lvl + '</td><td>' + dt + '</td><td class="score-num">' + row.score + '</td></tr>';
+    });
+    h += '</tbody></table>';
+    el.innerHTML = h;
+  } catch(e) { el.innerHTML = '<div class="loading" style="color:var(--red);">Could not load. Check connection.</div>'; }
+}
+
+async function logMUTest() {
+  const player = document.getElementById('mu-player').value;
+  const score = parseInt(document.getElementById('mu-score').value);
+  const date = document.getElementById('mu-date').value;
+  if (!player) { toast('Select a player', 'error'); return; }
+  if (isNaN(score) || score < 0) { toast('Enter a valid score', 'error'); return; }
+  if (!date) { toast('Enter a test date', 'error'); return; }
+  const btn = document.getElementById('mu-btn');
+  btn.disabled=true; btn.textContent='Saving...';
+  try {
+    await sb('mu_test_scores', { method:'POST', body: JSON.stringify({ player, score, test_date: date }) });
+    const lvl = score>=20?'Varsity':score>=15?'JV':score>=12?'Freshman':'Needs Work';
+    toast(player + ' — ' + score + ' (' + lvl + ') ✓', 'success');
+    document.getElementById('mu-player').value = '';
+    document.getElementById('mu-score').value = '';
+    loadMUTest();
+  } catch(e) { toast('Save failed. Check connection.', 'error'); }
+  btn.disabled=false; btn.textContent='Log Score';
+}
+
+/* TOAST */
+let _tt;
+function toast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast' + (type ? ' ' + type : '');
+  void el.offsetWidth;
+  el.classList.add('show');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+/* INIT */
+document.addEventListener('DOMContentLoaded', () => {
+  renderBlock('b1');
+  try { document.getElementById('mu-date').valueAsDate = new Date(); } catch(e){}
+});
+</script>
+</body>
+</html>
