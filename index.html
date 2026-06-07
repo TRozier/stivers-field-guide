@@ -217,6 +217,7 @@
 
 <div class="nav">
   <button class="nav-btn active" onclick="showTab('offseason',this)">June Sessions</button>
+  <button class="nav-btn" onclick="showTab('session-plans',this)">Session Plans</button>
   <button class="nav-btn" onclick="showTab('fatigue',this)">Fatigue Menu</button>
   <button class="nav-btn" onclick="showTab('heat',this)">Heat Day</button>
   <button class="nav-btn" onclick="showTab('curriculum',this)">Curriculum</button>
@@ -301,11 +302,100 @@
   </div>
 </div>
 
+<!-- SESSION PLANS -->
+<div id="tab-session-plans" class="hidden">
+  <p class="section-label">June Session Plans — Week 1</p>
+  <div class="info-box">
+    <div class="info-text">1v1 Super 6 Series · Sessions 1–3 · Jun 8–10<br>Ball mastery at Station 1 is themed to match the 1v1 drill at Station 2 every session.</div>
+  </div>
+  <div class="pill-row">
+    <button class="pill active" onclick="showSession('s1',this)">S1 — Jun 8</button>
+    <button class="pill" onclick="showSession('s2',this)">S2 — Jun 9</button>
+    <button class="pill" onclick="showSession('s3',this)">S3 — Jun 10</button>
+  </div>
+
+  <div id="sess-s1">
+    <div class="card card-accent-orange">
+      <div class="card-title">⚡ Warmup — Sprint Day <span class="badge badge-orange">~150m</span></div>
+      <div class="card-body">
+        <div class="sprint-item"><div class="sprint-dot"></div>Dynamic activation</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>3×20m sprints — full recovery · deceleration focus</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>3–4×10m with pogo jumps — full recovery</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>2× curved runs along the D</div>
+      </div>
+    </div>
+    <div class="card card-accent-green">
+      <div class="card-title">↻ Three-Station Rotation</div>
+      <div class="card-body">
+        <div style="margin-bottom:10px;"><strong style="color:var(--tiger-orange);">Station 1 — Coach CK · Ball Mastery</strong><br>Theme: Step Overs / Scissors / V-Move. Lateral deception moves — both feet, close control, game speed.</div>
+        <div style="margin-bottom:10px;"><strong style="color:var(--tiger-orange);">Station 2 — Coach P · Super 6 #1: CoD 1v1</strong><br>22×14 yd grid. 4 pop-up goals (2 per end). 2 simultaneous 1v1 duels. Attacker uses a CoD move to beat the defender and scores on either far goal. Simple swap after each duel. Coach P manages rotation and mixes pairings.<br><br><em style="color:var(--text-muted);">Focus: committing the defender before the move · sharp exit · goal selection based on defender position</em></div>
+        <div><strong style="color:var(--tiger-orange);">Station 3 — Coach Rozier · Combination + Finish</strong><br>4 color-coded cones between the 18 and the 6. Green cone = finish cone (~18ft outside the six). 3 in the combination, 1 resting — rotate one cone after each rep. Ball through combination one touch, third player releases to finisher running onto green cone. One-touch finish.<br><br>Round 1: cones define roles. Round 2: cones out — players create their own combination.<br><br><em style="color:var(--text-muted);">Focus: quality of the run onto the ball · decisive finish, ball stays down</em></div>
+      </div>
+    </div>
+    <div class="card card-accent-red">
+      <div class="card-title" style="color:var(--red);">🔥 Closer — Coach's Call</div>
+      <div class="card-body">Tiger Eye or fatigue menu option — one closer, not both.</div>
+    </div>
+  </div>
+
+  <div id="sess-s2" class="hidden">
+    <div class="card card-accent-green">
+      <div class="card-title">💚 Warmup — Extended + Plyometrics <span class="badge badge-green">ODD WEEK</span></div>
+      <div class="card-body">
+        <div class="sprint-item"><div class="sprint-dot"></div>Full warmup book sequence</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>Plyometrics block — coach's selection</div>
+        <div style="margin-top:8px; font-size:11px; color:var(--text-muted);">No sprint volume today — extended warmup and plyo carry the physical load.</div>
+      </div>
+    </div>
+    <div class="card card-accent-green">
+      <div class="card-title">↻ Three-Station Rotation</div>
+      <div class="card-body">
+        <div style="margin-bottom:10px;"><strong style="color:var(--tiger-orange);">Station 1 — Coach CK · Ball Mastery</strong><br>Theme: L-Turn / Cruyff / Matthews. Horizontal change of direction moves — both feet, close control.</div>
+        <div style="margin-bottom:10px;"><strong style="color:var(--tiger-orange);">Station 2 — Coach P · Super 6 #2: Twist &amp; Turn</strong><br>2-goal grid. Two mini goals on opposite ends. Attacker uses horizontal skill moves to create the angle and score. Live defender throughout. Simple swap after each duel.<br><br><em style="color:var(--text-muted);">Focus: is the move actually shifting the defender? acceleration out of the turn?</em></div>
+        <div><strong style="color:var(--tiger-orange);">Station 3 — Coach Rozier · Combination + Finish</strong><br>Same structure as Session 1. If the group ran it in S1, open it up — cones out, players design their own combination before the finish.</div>
+      </div>
+    </div>
+    <div class="card card-accent-red">
+      <div class="card-title" style="color:var(--red);">🔥 Closer — Coach's Call</div>
+      <div class="card-body">Tiger Eye or fatigue menu option — one closer, not both.</div>
+    </div>
+  </div>
+
+  <div id="sess-s3" class="hidden">
+    <div class="card card-accent-orange">
+      <div class="card-title">⚡ Warmup — Sprint Day <span class="badge badge-orange">~175m</span></div>
+      <div class="card-body">
+        <div class="sprint-item"><div class="sprint-dot"></div>Dynamic activation</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>3×20m sprints — full recovery · ~60m</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>Partner Chase — W Formation · 5 reps × 25yds · poles at 5yd spacing · ~115m</div>
+      </div>
+    </div>
+    <div class="card card-accent-green">
+      <div class="card-title">↻ Three-Station Rotation</div>
+      <div class="card-body">
+        <div style="margin-bottom:10px;"><strong style="color:var(--tiger-orange);">Station 1 — Coach CK · Ball Mastery</strong><br>Theme: Drag Circle / Cut Circle / Inside-Outside Cuts. Sharp direction changes, close control, both feet.</div>
+        <div style="margin-bottom:10px;"><strong style="color:var(--tiger-orange);">Station 2 — Coach P · Super 6 #3: Reversed Mini Goals</strong><br>20×20 grid. Two mini goals side by side in the center, facing opposite end lines. Two lines of players on opposite ends. Coach plays ball in to the attacker, who goes 1v1 against the defender. One goal faces the attacker (immediate opportunity), the other faces away — scoring requires getting around and behind it.</div>
+        <div><strong style="color:var(--tiger-orange);">Station 3 — Coach Rozier · Game Context SSG</strong><br>Reversed goal format. Ball mastery move earns a point before goal counts. Run it with the rule, then drop it and free scrimmage to close.</div>
+      </div>
+    </div>
+    <div class="card card-accent-red">
+      <div class="card-title" style="color:var(--red);">🔥 Closer — Coach's Call</div>
+      <div class="card-body">Tiger Eye or fatigue menu option — one closer, not both.</div>
+    </div>
+  </div>
+</div>
+
 <!-- FATIGUE MENU -->
 <div id="tab-fatigue" class="hidden">
   <p class="section-label">Fatigue Training Menu</p>
   <div class="info-box">
-    <div class="info-text">Closes every session. Non-negotiable. Rotate options — keep them guessing. Goal: leave them completely gassed.</div>
+    <div class="info-text">One closer per session — coach picks. Tiger Eye or any option below. Rotate — keep them guessing.</div>
+  </div>
+
+  <div class="fatigue-card">
+    <div class="fatigue-title">🐯 Tiger Eye</div>
+    <div class="fatigue-desc">For Time — 4 Rounds: 20 squat jumps · 15 push-ups · 10 burpees · sideline-and-back sprint. Track every time. Leaderboard updates after. Varsity standard: sub-10 min.</div>
+    <div class="fatigue-meta"><span class="badge badge-red">~13–16 min</span><span class="badge badge-orange">Timed · tracked · leaderboard</span></div>
   </div>
 
   <div class="fatigue-card">
@@ -915,6 +1005,13 @@ async function logMUTest() {
     loadMUTest();
   } catch(e) { toast('Save failed. Check connection.', 'error'); }
   btn.disabled=false; btn.textContent='Log Score';
+}
+
+function showSession(id, btn) {
+  ['s1','s2','s3'].forEach(s => document.getElementById('sess-' + s).classList.add('hidden'));
+  document.querySelectorAll('#tab-session-plans .pill').forEach(p => p.classList.remove('active'));
+  document.getElementById('sess-' + id).classList.remove('hidden');
+  if (btn) btn.classList.add('active');
 }
 
 function showSprint(id, btn) {
