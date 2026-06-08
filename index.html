@@ -224,6 +224,7 @@
   <button class="nav-btn" onclick="showTab('tiger-eye',this)">Tiger Eye 🔥</button>
   <button class="nav-btn" onclick="showTab('mu-test',this)">MU Test</button>
   <button class="nav-btn" onclick="showTab('sprints',this)">Sprint Library</button>
+  <button class="nav-btn" onclick="showTab('banded',this)">Banded Drills</button>
 </div>
 
 <div class="main">
@@ -748,42 +749,50 @@
       <div class="card-title">Burpee to Sprint <span class="badge badge-red">4x min</span></div>
       <div class="card-body">Full burpee → sprint immediately. Trains acceleration out of fatigue. The burpee is the load — sprint starts the moment they're upright.</div>
     </div>
-    <div class="card card-accent-orange">
-      <div class="card-title">Banded Toe Walks <span class="badge badge-blue">Foot &amp; Ankle Strength</span></div>
-      <div class="card-body">
-        <div class="stat-row"><span class="stat-label">Sets / Distance</span><span class="stat-val">3×15 yards</span></div>
-        <div class="stat-row"><span class="stat-label">Band</span><span class="stat-val">Around feet or ankles</span></div>
-        <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Stand tall on toes. Walk forward slow and controlled. Keep the band tight. Do not rush.</span></div>
-        <div style="margin-top:8px;font-size:11px;color:var(--text-muted);">Use in dynamic warmup, gym sessions, or any session. Not sprint-day exclusive.</div>
-      </div>
+  </div>
+</div>
+
+<!-- BANDED DRILLS -->
+<div id="tab-banded" class="hidden">
+  <p class="section-label">Banded Drills</p>
+  <div class="info-box">
+    <div class="info-text">Band around feet or ankles unless noted. Use in dynamic warmups, gym sessions, sprint days, or any session. More drills added as the program grows.</div>
+  </div>
+
+  <div class="card card-accent-orange">
+    <div class="card-title">Banded Toe Walks <span class="badge badge-blue">Foot &amp; Ankle Strength</span></div>
+    <div class="card-body">
+      <div class="stat-row"><span class="stat-label">Sets / Distance</span><span class="stat-val">3×15 yards</span></div>
+      <div class="stat-row"><span class="stat-label">Band</span><span class="stat-val">Around feet or ankles</span></div>
+      <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Stand tall on toes. Walk forward slow and controlled. Band stays tight. Do not rush.</span></div>
     </div>
-    <div class="card card-accent-orange">
-      <div class="card-title">Cross Country <span class="badge badge-blue">Banded Jump Lunges</span></div>
-      <div class="card-body">
-        <div class="stat-row"><span class="stat-label">Distance</span><span class="stat-val">15 yards / meters</span></div>
-        <div class="stat-row"><span class="stat-label">Band</span><span class="stat-val">Around feet or ankles</span></div>
-        <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Stationary — large alternating jump lunges. Must be quick. Band stays taut throughout.</span></div>
-        <div style="margin-top:8px;font-size:11px;color:var(--text-muted);">Use in dynamic warmup, gym, or any session.</div>
-      </div>
+  </div>
+
+  <div class="card card-accent-orange">
+    <div class="card-title">Cross Country <span class="badge badge-blue">Banded Jump Lunges</span></div>
+    <div class="card-body">
+      <div class="stat-row"><span class="stat-label">Distance</span><span class="stat-val">15 yards / meters</span></div>
+      <div class="stat-row"><span class="stat-label">Band</span><span class="stat-val">Around feet or ankles</span></div>
+      <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Stationary — large alternating jump lunges. Must be quick. Band stays taut throughout.</span></div>
     </div>
-    <div class="card card-accent-orange">
-      <div class="card-title">Quick Jacks <span class="badge badge-blue">Banded Jumping Jacks</span></div>
-      <div class="card-body">
-        <div class="stat-row"><span class="stat-label">Distance / Reps</span><span class="stat-val">15 yards / meters or for reps</span></div>
-        <div class="stat-row"><span class="stat-label">Band</span><span class="stat-val">Around feet or ankles</span></div>
-        <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Jumping jack variation with band resistance. Must be fast — slow jacks defeat the purpose.</span></div>
-        <div style="margin-top:8px;font-size:11px;color:var(--text-muted);">Use in dynamic warmup, gym, or any session.</div>
-      </div>
+  </div>
+
+  <div class="card card-accent-orange">
+    <div class="card-title">Quick Jacks <span class="badge badge-blue">Banded Jumping Jacks</span></div>
+    <div class="card-body">
+      <div class="stat-row"><span class="stat-label">Distance / Reps</span><span class="stat-val">15 yards / meters or for reps</span></div>
+      <div class="stat-row"><span class="stat-label">Band</span><span class="stat-val">Around feet or ankles</span></div>
+      <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Jumping jack variation with band resistance. Must be fast — slow jacks defeat the purpose.</span></div>
     </div>
-    <div class="card card-accent-orange">
-      <div class="card-title">Triple Switches <span class="badge badge-blue">Banded Single-Leg Drives</span></div>
-      <div class="card-body">
-        <div class="stat-row"><span class="stat-label">Distance / Reps</span><span class="stat-val">15 yards / meters or for reps</span></div>
-        <div class="stat-row"><span class="stat-label">Band</span><span class="stat-val">Around feet or ankles</span></div>
-        <div class="stat-row"><span class="stat-label">Sequence</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">One leg drives high → 3 quick switches → on "3" the opposite leg is high. That = 1 rep.</span></div>
-        <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Must be quick throughout. No slowing down between switches.</span></div>
-        <div style="margin-top:8px;font-size:11px;color:var(--text-muted);">Use in dynamic warmup, gym, or any session.</div>
-      </div>
+  </div>
+
+  <div class="card card-accent-orange">
+    <div class="card-title">Triple Switches <span class="badge badge-blue">Banded Single-Leg Drives</span></div>
+    <div class="card-body">
+      <div class="stat-row"><span class="stat-label">Distance / Reps</span><span class="stat-val">15 yards / meters or for reps</span></div>
+      <div class="stat-row"><span class="stat-label">Band</span><span class="stat-val">Around feet or ankles</span></div>
+      <div class="stat-row"><span class="stat-label">Sequence</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">One leg drives high → 3 quick switches → on "3" opposite leg is high. That = 1 rep.</span></div>
+      <div class="stat-row"><span class="stat-label">Cue</span><span class="stat-val" style="font-weight:400;color:var(--text-secondary);">Must be quick throughout. No slowing between switches.</span></div>
     </div>
   </div>
 </div>
