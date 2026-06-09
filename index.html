@@ -233,7 +233,7 @@
 <div id="tab-offseason">
   <p class="section-label">June Offseason — Session Structure</p>
   <div class="info-box">
-    <div class="info-text">3–4 sessions/week &nbsp;·&nbsp; 2 hours each &nbsp;·&nbsp; Jun 8–Jul 3<br>Three-station rotation runs every session.</div>
+    <div class="info-text">3–4 sessions/week &nbsp;·&nbsp; 2 hours each &nbsp;·&nbsp; Jun 8–Jul 3<br>Ball Mastery → 1v1/2v2 → SSG → Finisher. Coach P runs dedicated GK session at the top.</div>
   </div>
   <div class="pill-row">
     <button class="pill active" onclick="showDay('monwed',this)">Mon / Wed</button>
@@ -256,12 +256,13 @@
       </div>
     </div>
     <div class="card card-accent-green">
-      <div class="card-title">↻ 2 — Three-Station Rotation</div>
+      <div class="card-title">↻ 2 — Session Structure</div>
       <div class="card-body">
         <div class="two-col" style="margin-top:4px;">
           <div class="mini-card"><div class="mini-label">Coach CK</div><div class="mini-val">Ball mastery</div></div>
-          <div class="mini-card"><div class="mini-label">Coach P</div><div class="mini-val">1v1 brackets</div></div>
-          <div class="mini-card" style="grid-column:span 2;"><div class="mini-label">Coach Rozier — floats</div><div class="mini-val">2v1 · game context · SSGs if time allows</div></div>
+          <div class="mini-card"><div class="mini-label">Coach Rozier</div><div class="mini-val">1v1 → 2v2</div></div>
+          <div class="mini-card"><div class="mini-label">Full group</div><div class="mini-val">SSG — tied to 1v1 drill of the day</div></div>
+          <div class="mini-card"><div class="mini-label">Coach P</div><div class="mini-val">GK session — 30–45 min at top. GKs fold in after.</div></div>
         </div>
       </div>
     </div>
@@ -286,22 +287,23 @@
 
   <div id="day-tuethu" class="hidden">
     <div class="card card-accent-green">
-      <div class="card-title">💚 1 — Extended Warmup</div>
+      <div class="card-title">💚 1 — SAQ + Plyometrics <span class="badge badge-green">ALWAYS BOTH</span></div>
       <div class="card-body">
-        From Coach Rozier's warmup book. Plyo and SAQ on alternating schedule:
+        SAQ and Plyo every Tue/Thu — never one without the other. Full block before ball work.
         <div class="two-col" style="margin-top:10px;">
-          <div class="mini-card"><div class="mini-label" style="color:var(--tiger-orange);">ODD WEEKS</div><div class="mini-val">Tue = Plyometrics<br>Thu = SAQ</div></div>
-          <div class="mini-card"><div class="mini-label" style="color:var(--blue);">EVEN WEEKS</div><div class="mini-val">Tue = SAQ<br>Thu = Plyometrics</div></div>
+          <div class="mini-card"><div class="mini-label" style="color:var(--tiger-orange);">SAQ</div><div class="mini-val">Agility ladder drills — foot speed, coordination, neuromuscular activation</div></div>
+          <div class="mini-card"><div class="mini-label" style="color:var(--blue);">PLYOMETRICS</div><div class="mini-val">Explosive power — tuck jumps, skater jumps, lunge switches to sprint</div></div>
         </div>
       </div>
     </div>
     <div class="card card-accent-green">
-      <div class="card-title">↻ 2 — Three-Station Rotation</div>
+      <div class="card-title">↻ 2 — Session Structure</div>
       <div class="card-body">
         <div class="two-col" style="margin-top:4px;">
           <div class="mini-card"><div class="mini-label">Coach CK</div><div class="mini-val">Ball mastery</div></div>
-          <div class="mini-card"><div class="mini-label">Coach P</div><div class="mini-val">1v1 brackets</div></div>
-          <div class="mini-card" style="grid-column:span 2;"><div class="mini-label">Coach Rozier — floats</div><div class="mini-val">2v1 · game context · SSGs if time allows</div></div>
+          <div class="mini-card"><div class="mini-label">Coach Rozier</div><div class="mini-val">1v1 → 2v2</div></div>
+          <div class="mini-card"><div class="mini-label">Full group</div><div class="mini-val">SSG — tied to 1v1 drill of the day</div></div>
+          <div class="mini-card"><div class="mini-label">Coach P</div><div class="mini-val">GK session — 30–45 min at top. GKs fold in after.</div></div>
         </div>
       </div>
     </div>
@@ -340,6 +342,9 @@
     <button class="pill" onclick="showSession('s2',this)">S2 — Jun 9</button>
     <button class="pill" onclick="showSession('s3',this)">S3 — Jun 10</button>
   </div>
+  <div class="info-box" id="sess-s2-note" style="display:none;">
+    <div class="info-text">Session Plan #6 — 1v1 Skills Builder Vol. 2 · Dribbling to Beat Defenders</div>
+  </div>
 
   <div id="sess-s1">
     <div class="card card-accent-orange">
@@ -367,24 +372,35 @@
 
   <div id="sess-s2" class="hidden">
     <div class="card card-accent-green">
-      <div class="card-title">💚 Warmup — Extended + Plyometrics <span class="badge badge-green">ODD WEEK</span></div>
+      <div class="card-title">💚 Warmup — SAQ + Plyometrics <span class="badge badge-green">ALWAYS BOTH</span></div>
       <div class="card-body">
-        <div class="sprint-item"><div class="sprint-dot"></div>Full warmup book sequence</div>
-        <div class="sprint-item"><div class="sprint-dot"></div>Plyometrics block — coach's selection</div>
-        <div style="margin-top:8px; font-size:11px; color:var(--text-muted);">No sprint volume today — extended warmup and plyo carry the physical load.</div>
+        <div class="sprint-item"><div class="sprint-dot"></div>Dynamic warmup — full group</div>
+        <div class="sprint-item"><div class="sprint-dot"></div><strong style="color:var(--text-primary);">SAQ — Agility Ladder:</strong> SL In &amp; Out · SL Medial/Lateral In &amp; Out · SL Hops · Scissor/Split Jumps — 2 runs each</div>
+        <div class="sprint-item"><div class="sprint-dot"></div><strong style="color:var(--text-primary);">Plyometrics:</strong> Tuck Jumps 3×8 · SL Lateral Skater Jumps 3×6 each · Lunge Switches into Sprint 4 reps</div>
+        <div style="margin-top:8px; font-size:11px; color:var(--text-muted);">SAQ and Plyo always together on Tue/Thu — never one without the other. Full block before ball work.</div>
       </div>
     </div>
     <div class="card card-accent-green">
-      <div class="card-title">↻ Three-Station Rotation</div>
+      <div class="card-title">⚽ GK Session — Coach P</div>
+      <div class="card-body">30–45 min dedicated GK session at top of practice. GKs fold into full group after.</div>
+    </div>
+    <div class="card card-accent-orange">
+      <div class="card-title">📖 Session Plan #6 — 1v1 Skills Builder Vol. 2</div>
+      <div class="card-body" style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">Theme: Dribbling to Beat Defenders · Plan for 8 minimum</div>
       <div class="card-body">
-        <div style="margin-bottom:10px;"><strong style="color:var(--tiger-orange);">Station 1 — Coach CK · Ball Mastery</strong><br>Theme: L-Turn / Cruyff / Matthews. Horizontal change of direction moves — both feet, close control.</div>
-        <div style="margin-bottom:10px;"><strong style="color:var(--tiger-orange);">Station 2 — Coach P · Super 6 #2: Twist &amp; Turn</strong><br>2-goal grid. Two mini goals on opposite ends. Attacker uses horizontal skill moves to create the angle and score. Live defender throughout. Simple swap after each duel.<br><br><em style="color:var(--text-muted);">Focus: is the move actually shifting the defender? acceleration out of the turn?</em></div>
-        <div><strong style="color:var(--tiger-orange);">Station 3 — Coach Rozier · Combination + Finish</strong><br>Same structure as Session 1. If the group ran it in S1, open it up — cones out, players design their own combination before the finish.</div>
+        <div style="margin-bottom:12px;"><strong style="color:var(--tiger-orange);">Phase 1 — Chase the Ace · Coach CK · 15 min</strong><br>5×5 or 10×10 grid. Attacker dribbles around outside, defender follows and tries to tag. Winners vs. winners rotation.<br><br><em style="color:var(--text-muted);">Skill moves: Step Over · Drag Circle · Cut Circle · Cruyff · L-Turn · V-Move</em></div>
+        <div style="margin-bottom:12px;"><strong style="color:var(--tiger-orange);">Phase 2 — Diamond Dribbler · Coach Rozier · 20 min</strong><br>20×20 grid, 5-yd diamond in center. All attackers dribble in and out simultaneously. 2 defenders locked inside diamond.<br><br>Exit same side = 1pt · Exit left/right = 2pts · Exit opposite = 3pts. Defenders touch ball = score resets. Win possession + score on mini goals = attacker eliminated. 90 sec continuous, rotate defenders.<br><br><em style="color:var(--text-muted);">Walk through scoring clearly before first round — it's new.</em></div>
+        <div style="margin-bottom:12px;"><strong style="color:var(--tiger-orange);">Phase 3 — 4 Way Dribble Gates · Coach Rozier · 25 min</strong><br>25×25 grid, 4 dribble gates (3 yds wide). 2v2 inside (progress to 3v3). 4 neutrals outside play with team in possession. Score by dribbling through any gate = 1pt. Play to 18, switch teams.<br><br><em style="color:var(--text-muted);">When to dribble, when to pass — use dribble to create 2v1.</em></div>
+        <div><strong style="color:var(--tiger-orange);">Phase 4 — 4 Way Dribble Gates + GKs · Coach Rozier · 25 min</strong><br>Same setup, GKs in gates. 2v2, 3v3, or 4v4. Empty gate = 1pt · GK-occupied gate = 5pts · Shoot/pass through = 3pts. Play to 21.<br><br><em style="color:var(--text-muted);">Low coach intervention — let the game be the teacher.</em></div>
       </div>
     </div>
+    <div class="card" style="border-left:3px solid var(--border-strong);">
+      <div class="card-title">🎯 Bonus — Optional (if time)</div>
+      <div class="card-body">PKs or coach choice. Skip if running long — don't sacrifice the finisher.</div>
+    </div>
     <div class="card card-accent-red">
-      <div class="card-title" style="color:var(--red);">🔥 Closer — Coach's Call</div>
-      <div class="card-body">Tiger Eye or fatigue menu option — one closer, not both.</div>
+      <div class="card-title" style="color:var(--red);">💀 Closer — Pyramid of Pain</div>
+      <div class="card-body">Suicides — sprint to each line and back, building in distance. <strong style="color:var(--text-primary);">2 rounds minimum</strong> with mandatory rest between. Call 3–4 if players still look fresh or session had discipline issues.</div>
     </div>
   </div>
 
